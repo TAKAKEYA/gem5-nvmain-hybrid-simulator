@@ -3,42 +3,7 @@
 #include <cstdlib>
 #include <iostream>
 
-using namespace NVM;
 
-NormalDistribution::NormalDistribution( )
-{
-    nextEndurance = 0.0f;
-}
-
-NormalDistribution::NormalDistribution( Config *conf )
-{
-    config = conf;
-
-    if( conf->GetValue( "EnduranceDistMean" ) == -1 )
-    {
-        std::cout << "EnduranceDistMean parameter not found for normal \
-            distribution!!\n";
-        mean = 1000000;
-    }
-    else
-    {
-        mean = conf->GetValue( "EnduranceDistMean" );
-    }
-
-
-    if( conf->GetValue( "EnduranceDistVariance" ) == -1 )
-    {
-        std::cout << "EnduranceDistVariance parameter not found for normal \
-            distribution!!\n";
-        variance = 100000;
-    }
-    else
-    {
-        variance = conf->GetValue( "EnduranceDistVariance" );
-    }
-
-    nextEndurance = 0.0f;
-}
 
 
 uint64_t NormalDistribution::GetEndurance( )
