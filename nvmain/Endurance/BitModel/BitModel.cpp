@@ -24,60 +24,7 @@ BitModel::~BitModel( )
      */
 }
 
-void BitModel::SetConfig( Config *config, bool createChildren )
-{
-    Params *params = new Params( );
-    params->SetParams( config );
-    SetParams( params );
 
-    EnduranceModel::SetConfig( config, createChildren );
-}
-
-ncycles_t BitModel::Read( NVMainRequest *request )
-{
-    uint64_t row;
-    uint64_t col;
-    ncycles_t rv = 0;
-
-    request->address.GetTranslatedAddress( &row, &col, NULL, NULL, NULL, NULL );
-    
-    uint64_t wordkey;
-    uint64_t rowSize;
-    uint64_t wordSize;
-    uint64_t partitionCount;
-
-    wordSize = p->BusWidth;
-    wordSize *= p->tBURST * p->RATE;
-    wordSize /= 8;
-
-    rowSize = p->COLS * wordSize; 
-    
-    /* Check each bit to see if it is dead */
-    for( uint64_t i = 0; i < wordSize; ++i )
-    {
-        for( int j = 0; j < 8; j++ )
-        {
-            /*
-             *  Think of each row being partitioned into 1-bit divisions. 
-             *  Each row has rowSize * 8 paritions. For the key we will use:
-             *
-             *  row * number of partitions + partition in this row
-             */
-            partitionCount = rowSize * 8;
-            
-            wordkey = row * partitionCount 
-                             + (col * wordSize * 8) + i * 8 + j;
-
-            if( IsDead( wordkey ) )
-            {
-                rv = -(rv + 1);
-                return rv;
-            }
-        }
-    }
-
-    return rv;
-}
 
 ncycles_t BitModel::Write( NVMainRequest *request, NVMDataBlock& oldData ) 
 {
