@@ -16,7 +16,6 @@ class BitModel : public EnduranceModel
     ncycles_t Read( NVMainRequest *request );
     ncycles_t Write( NVMainRequest *request, NVMDataBlock& oldData );
 };
-
 };
 
 #endif
