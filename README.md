@@ -49,6 +49,7 @@
 4. Programmer-Specific-Page-Migration in Hybrid memory system
 ---------------------------------------
 
-
+###Contact
+If you have any questions or comments, please contact Xin-You Liu at xyliu@citi.sinica.edu.tw.
 
 
